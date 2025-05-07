@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EasyEFM - Inspired by Jasper.ai</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6a11cb; /* Jasper-like Purple */
+            --secondary-color: #2575fc; /* Jasper-like Blue */
+            --accent-color: #00ff9b; /* Bright Green Accent */
+            --text-color: #f0f0f0;
+            --bg-color: #121212; /* Dark Background */
+            --card-bg-color: #1e1e1e;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--bg-color);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--primary-color);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            margin-left: 10px;
+        }
+        .btn-secondary:hover {
+            background: var(--card-bg-color);
+            color: var(--primary-color);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 0;
+            text-align: center;
+        }
+        .features h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .feature-card {
+            background: var(--card-bg-color);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .feature-card .fas {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #a0a0a0;
+        }
+
+        /* Mind Map Image Styling */
+        section#mindmap .features-grid img {
+            border-radius: 10px; /* Overrides inline 8px for consistency */
+            border: 2px solid var(--accent-color); /* A more prominent border */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            /* max-width and height are handled by inline styles, which is fine */
+            /* display: block; might be useful if they are not already block by default in this context */
+        }
+
+        section#mindmap .features-grid img:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.3);
+            border-color: var(--primary-color); /* Change border color on hover */
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 60px 0;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            text-align: center;
+            color: white;
+        }
+        .cta-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0a;
+            color: #777;
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+
+
+
+        /* Audio Player Styles */
+        .audio-feature {
+            padding: 60px 0;
+            text-align: center;
+            background-color: var(--bg-color); /* Consistent background */
+        }
+
+        .audio-feature h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .audio-feature h3 {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+            font-weight: 400;
+        }
+
+        .audio-player-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .audio-player-container audio {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        /* Customizing audio controls (browser-dependent, but some general styling) */
+        /* Note: Full cross-browser custom audio player styling is complex and often requires JavaScript. */
+        /* These are basic attempts to influence WebKit-based browsers. */
+        .audio-player-container audio::-webkit-media-controls-panel {
+            background-color: var(--card-bg-color); /* Match card background */
+            /* color: var(--text-color); /* Attempt to set text color for controls */
+        }
+
+        .audio-player-container audio::-webkit-media-controls-play-button,
+        .audio-player-container audio::-webkit-media-controls-volume-slider-container, /* More specific selector for volume area */
+        .audio-player-container audio::-webkit-media-controls-mute-button,
+        .audio-player-container audio::-webkit-media-controls-timeline,
+        .audio-player-container audio::-webkit-media-controls-current-time-display,
+        .audio-player-container audio::-webkit-media-controls-time-remaining-display {
+            /* Basic filter to make controls visible on dark background.
+               This is a very rough approach and might not look great.
+               Consider a library for a fully custom player if needed. */
+            filter: invert(80%) brightness(150%) contrast(120%);
+        }
+        /* End Audio Player Styles */
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1rem; }
+            nav ul { display: none; /* Basic mobile menu handling - can be improved with JS */ }
+            .nav-buttons { /* Adjust if you have buttons here */ }
+        }
+
+        .pdf-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: left;
+        }
+
+        .pdf-link-card {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center; /* Center icon and text */
+        }
+
+        .pdf-link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+        }
+
+        .pdf-link-card .fas {
+            font-size: 2rem; /* Icon size */
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .pdf-link-card a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 1rem; /* Link text size */
+            text-align: center; /* Center link text */
+        }
+
+        .pdf-link-card a:hover {
+            color: var(--primary-color);
+        }
+
+
+        /* Game Styles */
+        #game-container .fa-gamepad {
+            color: var(--accent-color);
+        }
+
+        #question-text {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        #question-text small {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+
+        #options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-option {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 12px 15px;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            cursor: pointer;
+        }
+        .btn-option:hover:not(:disabled) {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+        .btn-option:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-option.correct {
+            background-color: var(--accent-color) !important;
+            color: var(--bg-color) !important;
+            border-color: var(--accent-color) !important;
+            font-weight: bold;
+        }
+
+        .btn-option.incorrect {
+            background-color: #e74c3c !important; /* A distinct red for incorrect answers */
+            color: white !important;
+            border-color: #e74c3c !important;
+            font-weight: bold;
+        }
+        
+        #result-area h4 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        #result-area #score-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+        }
+        #result-area #score-text p {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        #next-question-btn, #restart-game-btn, #start-game-btn {
+            padding: 12px 25px;
+            font-size: 1rem;
+            margin-top: 15px; /* Standardize margin-top for game action buttons */
+        }
+        #network-animation-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensure it's behind other content */
+            background-color: var(--bg-color); /* Fallback background */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="network-animation-canvas"></canvas>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Easy<span>EFM</span></a>
+                <ul>
+                    <li><a href="#resume" class="active">Résumé</a></li>
+                    <li><a href="#mindmap">Mind Map</a></li>
+                    <li><a href="#podcast">My Podcast (Darija)</a></li>
+                    <li><a href="#tp">TP</a></li>
+                    <li><a href="#efm">EFM</a></li>
+                    <li><a href="#jeux">Jeux (Centos)</a></li>
+                    <li><a href="#video">Video</a></li>
+                    <li><a href="#introduction-audio">Introduction</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="#login" class="btn btn-secondary">Log In</a>
+                    <a href="#signup" class="btn btn-primary">Sign Up Free</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section id="introduction-audio" class="audio-feature">
+        <div class="container">
+            <h2>Introduction Audio</h2>
+            <h3>Écoutez l'introduction</h3>
+            <div class="audio-player-container">
+                <audio controls>
+                    <source src="ElevenLabs_2025-05-07T20_58_27_Nicolas - Narration_pvc_sp100_s86_sb78_se28_b_m2.mp3" type="audio/mpeg">
+                    Votre navigateur ne supporte pas l'élément audio.
+                </audio>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <section id="resume" class="features">
+        <div class="container">
+            <h2>My Résumé</h2>
+            <h3>ملخصات</h3>
+            <div class="pdf-list">
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <a href="Resume_Apache.pdf" target="_blank">Resume_Apache.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <a href="Resume_dhcp.pdf" target="_blank">Resume_dhcp.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <a href="Resume_DNS.pdf" target="_blank">Resume_DNS.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <a href="Resume_Samba.pdf" target="_blank">Resume_Samba.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <a href="Rsume_FTP.pdf" target="_blank">Rsume_FTP.pdf</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mindmap" class="features" style="background-color: var(--card-bg-color);">
+        <div class="container">
+            <h2>Mind Map</h2>
+            <div class="features-grid">
+                <!-- Mind Map content will go here -->
+                <img src="mindmap-185100b8-de74-4fe6-80d3-1321737b5195.jpeg" alt="Mind Map 1" style="max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px;">
+                <img src="mindmap-b0772072-c74f-4b3a-a258-4e829ac91abc.jpeg" alt="Mind Map 2" style="max-width: 100%; height: auto; border-radius: 8px;">
+            </div>
+        </div>
+    </section>
+
+    <section id="podcast" class="features">
+        <div class="container">
+            <h2>My Podcast (Darija)</h2>
+            <div class="features-grid">
+                <!-- Podcast content will go here -->
+                <div class="pdf-link-card">
+                    <i class="fas fa-headphones-alt"></i>
+                    <p>30 QUESTIONS ADMINISTRATION LINUX</p>
+                    <audio controls>
+                        <source src="30 QUESTIONS ADMINISTRATION LINUX.wav" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-headphones-alt"></i>
+                    <p>أسئلة إدارة شبكات Linux</p>
+                    <audio controls>
+                        <source src="أسئلة إدارة شبكات Linux.wav" type="audio/wav">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="tp" class="features" style="background-color: var(--card-bg-color);">
+        <div class="container">
+            <h2>TP (Travaux Pratiques)</h2>
+            <h3>الأعمال التطبيقية</h3>
+            <div class="pdf-list">
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="TP1_ConfigDebase_centos8.pdf" target="_blank">TP1_ConfigDebase_centos8.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="TP2-2_Firewalld.pdf" target="_blank">TP2-2_Firewalld.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="Serveur NFS.pdf" target="_blank">Serveur NFS.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="serveur_Messagerie.pdf" target="_blank">serveur_Messagerie.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="TD5[1].pdf" target="_blank">TD5[1].pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="TP3_Configuration_de_base.pdf" target="_blank">TP3_Configuration_de_base.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="TP4_DHCP.pdf" target="_blank">TP4_DHCP.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="TP6_DNS.pdf" target="_blank">TP6_DNS.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="configuration _Openldap.pdf" target="_blank">configuration _Openldap.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-alt"></i>
+                    <a href="Configuration_de_base.pdf" target="_blank">Configuration_de_base.pdf</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="efm" class="features">
+        <div class="container">
+            <h2>EFM (Épreuve de Fin de Module)</h2>
+            <h3>نماذج الامتحانات</h3>
+            <div class="pdf-list">
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-signature"></i>
+                    <a href="EFMR-session-2-IDOSR-M203-V1-2023-1.pdf" target="_blank">EFMR-session-2-IDOSR-M203-V1-2023-1.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-signature"></i>
+                    <a href="EFMR-session-2-IDOSR-M203-V2-2023-1.pdf" target="_blank">EFMR-session-2-IDOSR-M203-V2-2023-1.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-signature"></i>
+                    <a href="EFMR-administration-linux-fes-2023-2.pdf" target="_blank">EFMR-administration-linux-fes-2023-2.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-signature"></i>
+                    <a href="Efm-region-Administration-sous-Linux-Beni-Mellal-Khenifra-1.pdf" target="_blank">Efm-region-Administration-sous-Linux-Beni-Mellal-Khenifra-1.pdf</a>
+                </div>
+                <div class="pdf-link-card">
+                    <i class="fas fa-file-signature"></i>
+                    <a href="EFMR-rabat-linux-v1-2023-3.pdf" target="_blank">EFMR-rabat-linux-v1-2023-3.pdf</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="jeux" class="features" style="background-color: var(--bg-color);">
+        <div class="container">
+            <h2>Jeux (Centos)</h2>
+            <h3>لعبة أسئلة حول إدارة شبكات Centos</h3>
+            <div id="game-container" class="feature-card" style="text-align: center;">
+                <i class="fas fa-gamepad" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                <h3 id="game-title">اختبر معلوماتك في Centos!</h3>
+                <p id="game-description">لعبة تفاعلية لاختبار معلوماتك حول إدارة شبكات Centos. اضغط على "ابدأ اللعب" لتحدي ممتع!</p>
+                <div id="question-area" style="display: none; margin-top: 20px;">
+                    <h4 id="question-text" style="margin-bottom: 15px; font-size: 1.2rem;"></h4>
+                    <div id="options-container" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                        <!-- Options will be dynamically inserted here -->
+                    </div>
+                    <button id="next-question-btn" class="btn btn-primary">السؤال التالي</button>
+                </div>
+                <div id="result-area" style="display: none; margin-top: 20px;">
+                    <h4>النتيجة النهائية:</h4>
+                    <p id="score-text" style="font-size: 1.5rem; font-weight: bold; color: var(--accent-color);"></p>
+                    <button id="restart-game-btn" class="btn btn-secondary">إعادة اللعب</button>
+                </div>
+                <button id="start-game-btn" class="btn btn-primary" style="margin-top: 20px;">ابدأ اللعب</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="video" class="features">
+        <div class="container">
+            <h2>Video</h2>
+            <h3>مقاطع الفيديو</h3>
+            <div class="features-grid">
+                <!-- Video content will go here -->
+                <div style="position: relative; padding-bottom: 56.25%; /* 16:9 aspect ratio */ height: 0; overflow: hidden; max-width: 100%; background: #000; margin-bottom: 20px;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/Ez7kpWg0vuQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div style="position: relative; padding-bottom: 56.25%; /* 16:9 aspect ratio */ height: 0; overflow: hidden; max-width: 100%; background: #000;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/videoseries?list=PLgShaa6PJwQ7BdjFKxKJVXMDFbZPAk6-D" title="YouTube video playlist" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <div style="position: relative; padding-bottom: 56.25%; /* 16:9 aspect ratio */ height: 0; overflow: hidden; max-width: 100%; background: #000;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" src="https://www.youtube.com/embed/ZQA3jjYonHQ?start=4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 EasyEFM. Inspired by ILIAS.AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const gameContainer = document.getElementById('game-container');
+        const gameTitle = document.getElementById('game-title');
+        const gameDescription = document.getElementById('game-description');
+        const startGameBtn = document.getElementById('start-game-btn'); // This button might not exist if the HTML was changed to auto-start
+        const questionArea = document.getElementById('question-area');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const nextQuestionBtn = document.getElementById('next-question-btn');
+        const resultArea = document.getElementById('result-area');
+        const scoreText = document.getElementById('score-text');
+        const restartGameBtn = document.getElementById('restart-game-btn');
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let questions = []; // Will be populated with a subset of allQuestions
+
+        const allQuestions = [
+            // Network Configuration & Basic Commands
+            {
+                question: "Quelle commande est utilisée pour afficher la configuration IP actuelle d'une interface réseau sous CentOS ?",
+                options: ["ifconfig", "ip addr show", "netstat -i", "route -n"],
+                answer: "ip addr show",
+                category: "Configuration Réseau"
+            },
+            {
+                question: "Quel fichier contient la configuration des serveurs DNS à utiliser par le système ?",
+                options: ["/etc/hosts", "/etc/nsswitch.conf", "/etc/resolv.conf", "/etc/sysconfig/network"],
+                answer: "/etc/resolv.conf",
+                category: "Configuration DNS"
+            },
+            {
+                question: "Quelle commande permet de redémarrer le service réseau sous CentOS 7/8 ?",
+                options: ["service network restart", "systemctl restart network", "systemctl restart NetworkManager", "/etc/init.d/network restart"],
+                answer: "systemctl restart NetworkManager",
+                category: "Gestion des Services"
+            },
+            {
+                question: "Quel est le port par défaut pour SSH ?",
+                options: ["21 (FTP)", "22 (SSH)", "23 (Telnet)", "80 (HTTP)"],
+                answer: "22 (SSH)",
+                category: "Protocoles et Ports"
+            },
+            {
+                question: "Quelle commande est utilisée pour vérifier la connectivité réseau avec un hôte distant ?",
+                options: ["traceroute", "netstat", "ping", "arp"],
+                answer: "ping",
+                category: "Diagnostic Réseau"
+            },
+            {
+                question: "Comment afficher la table de routage sous CentOS ?",
+                options: ["ip route show", "netstat -r", "route", "Toutes les réponses sont correctes"],
+                answer: "Toutes les réponses sont correctes",
+                category: "Routage"
+            },
+            {
+                question: "Quel outil en ligne de commande est utilisé pour capturer et analyser le trafic réseau ?",
+                options: ["nmap", "tcpdump", "wireshark (GUI)", "netcat"],
+                answer: "tcpdump",
+                category: "Analyse de Trafic"
+            },
+            {
+                question: "Quel fichier de configuration principal est utilisé par le pare-feu `firewalld` ?",
+                options: ["/etc/sysconfig/iptables", "/etc/firewalld/firewalld.conf", "/usr/lib/firewalld/services/", "/etc/firewalld/zones/public.xml"],
+                answer: "/etc/firewalld/firewalld.conf",
+                category: "Pare-feu (firewalld)"
+            },
+            {
+                question: "Quelle commande `firewall-cmd` permet d'ajouter un service (ex: http) de façon permanente à la zone `public` ?",
+                options: ["firewall-cmd --zone=public --add-service=http", "firewall-cmd --permanent --add-service=http", "firewall-cmd --zone=public --add-service=http --permanent", "firewall-cmd --add-service=http --permanent"],
+                answer: "firewall-cmd --zone=public --add-service=http --permanent",
+                category: "Pare-feu (firewalld)"
+            },
+            {
+                question: "Pour lier un service à un port spécifique (ex: port 8080 pour http), quel fichier de service `firewalld` modifieriez-vous ou créeriez-vous ?",
+                options: ["Un fichier dans /etc/firewalld/services/", "Le fichier /etc/services", "Le fichier de configuration de l'application", "On ne peut pas faire ça avec firewalld"],
+                answer: "Un fichier dans /etc/firewalld/services/",
+                category: "Pare-feu (firewalld)"
+            },
+            // CentOS Specifics & Advanced
+            {
+                question: "Quel gestionnaire de paquets est utilisé par défaut sous CentOS ?",
+                options: ["apt", "yum", "dnf", "pacman"],
+                answer: "dnf", // yum is often a symlink to dnf in modern CentOS (like CentOS 8+)
+                category: "Gestion des Paquets"
+            },
+            {
+                question: "Quelle commande permet de mettre à jour tous les paquets installés sur un système CentOS ?",
+                options: ["yum update", "dnf upgrade", "apt-get upgrade", "Les deux A et B sont corrects"],
+                answer: "Les deux A et B sont corrects", // yum update or dnf upgrade
+                category: "Gestion des Paquets"
+            },
+            {
+                question: "Où sont stockés les fichiers journaux (logs) système par défaut sous CentOS ?",
+                options: ["/var/log", "/etc/logs", "/tmp/logs", "/opt/logs"],
+                answer: "/var/log",
+                category: "Journalisation"
+            },
+            {
+                question: "Quelle commande est utilisée pour vérifier l'espace disque utilisé et disponible ?",
+                options: ["du", "df -h", "free -m", "lsblk"],
+                answer: "df -h",
+                category: "Gestion du Stockage"
+            },
+            {
+                question: "Comment changer le nom d'hôte (hostname) de manière persistante sur CentOS ?",
+                options: ["hostnamectl set-hostname <nouveau_nom>", "echo <nouveau_nom> > /etc/hostname", "Modifier /etc/sysconfig/network", "Les deux A et B"],
+                answer: "hostnamectl set-hostname <nouveau_nom>",
+                category: "Configuration Système"
+            },
+            {
+                question: "Quel service est responsable de la synchronisation de l'heure sur CentOS ?",
+                options: ["ntpd", "chronyd", "timesyncd", "clockd"],
+                answer: "chronyd",
+                category: "Synchronisation Horaire"
+            },
+            {
+                question: "Quelle commande permet de lister les services actifs (running) avec systemd ?",
+                options: ["systemctl list-units --type=service --state=active", "systemctl status", "service --status-all", "ps aux | grep service"],
+                answer: "systemctl list-units --type=service --state=active",
+                category: "Gestion des Services (systemd)"
+            },
+            {
+                question: "Pour configurer une adresse IP statique, quel répertoire contient les fichiers de configuration d'interface réseau ?",
+                options: ["/etc/network/interfaces", "/etc/sysconfig/network-scripts/", "/etc/netplan/", "/etc/udev/rules.d/"],
+                answer: "/etc/sysconfig/network-scripts/",
+                category: "Configuration Réseau Avancée"
+            },
+            {
+                question: "Quel outil est couramment utilisé pour gérer les volumes logiques (LVM) sous Linux ?",
+                options: ["fdisk", "parted", "lvcreate/vgcreate/pvcreate", "mkfs"],
+                answer: "lvcreate/vgcreate/pvcreate",
+                category: "Gestion du Stockage (LVM)"
+            },
+            {
+                question: "Quelle commande permet de voir les connexions réseau actives et les ports d'écoute ?",
+                options: ["ifconfig -a", "ss -tulnp", "netstat -tulnp (obsolète)", "Les deux B et C"],
+                answer: "Les deux B et C", // ss is preferred, netstat is older but often still available
+                category: "Diagnostic Réseau"
+            }
+        ];
+
+        // Check if startGameBtn exists before adding event listener
+        if (startGameBtn) {
+            startGameBtn.addEventListener('click', startGame);
+        } else {
+            // If no start button, perhaps the game should start automatically or via another trigger
+            // For now, let's assume it might be started by a direct call if the button is missing
+            // Or, the HTML structure for starting the game has changed.
+            // We will proceed to initialize the game elements that are present.
+            console.log("Start game button not found. Game might need manual start or HTML structure changed.");
+            // Attempt to start the game directly if the structure implies it (e.g. no start button, question area visible)
+            // This is a fallback, ideally the HTML and JS are in sync.
+            if (questionArea && questionArea.style.display !== 'none') {
+                 // startGame(); // Or a modified version if the initial display logic changed
+            }
+        }
+        nextQuestionBtn.addEventListener('click', loadNextQuestion);
+        restartGameBtn.addEventListener('click', startGame);
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function startGame() {
+            currentQuestionIndex = 0;
+            score = 0;
+            questions = shuffleArray([...allQuestions]).slice(0, 10); // Select 10 random questions
+            
+            if(gameTitle) gameTitle.style.display = 'none';
+            if(gameDescription) gameDescription.style.display = 'none';
+            if(startGameBtn) startGameBtn.style.display = 'none'; // Hide if it exists
+            
+            resultArea.style.display = 'none';
+            questionArea.style.display = 'block';
+            nextQuestionBtn.textContent = 'السؤال التالي';
+            nextQuestionBtn.disabled = true;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                const currentQuestion = questions[currentQuestionIndex];
+                questionText.innerHTML = `Question ${currentQuestionIndex + 1}/${questions.length}: ${currentQuestion.question} <br><small style='color: var(--secondary-color); font-size: 0.9em; display: block; margin-top: 5px;'>Catégorie: ${currentQuestion.category}</small>`;
+                optionsContainer.innerHTML = '';
+                currentQuestion.options.forEach(optionText => {
+                    const button = document.createElement('button');
+                    button.textContent = optionText;
+                    button.classList.add('btn', 'btn-option'); 
+                    button.addEventListener('click', () => selectAnswer(optionText, button));
+                    optionsContainer.appendChild(button);
+                });
+                nextQuestionBtn.style.display = 'none'; 
+                nextQuestionBtn.disabled = true;
+            } else {
+                showResults();
+            }
+        }
+
+        function selectAnswer(selectedOption, selectedButton) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const allOptionButtons = optionsContainer.querySelectorAll('.btn-option');
+            
+            allOptionButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('correct', 'incorrect'); // Reset previous states
+                if (btn.textContent === currentQuestion.answer) {
+                    btn.classList.add('correct'); // Always show the correct answer
+                }
+            });
+
+            if (selectedOption === currentQuestion.answer) {
+                score++;
+                // 'correct' class is already on the selectedButton if it's the right one
+            } else {
+                selectedButton.classList.add('incorrect'); // Mark the selected wrong answer
+            }
+            
+            nextQuestionBtn.style.display = 'inline-block';
+            nextQuestionBtn.disabled = false;
+            if (currentQuestionIndex === questions.length - 1) {
+                nextQuestionBtn.textContent = 'Voir les résultats';
+            }
+        }
+
+        function loadNextQuestion() {
+            currentQuestionIndex++;
+            nextQuestionBtn.disabled = true;
+            loadQuestion();
+        }
+
+        function showResults() {
+            questionArea.style.display = 'none';
+            resultArea.style.display = 'block';
+            let resultMessage = "";
+            const percentage = (score / questions.length) * 100;
+            if (percentage >= 80) {
+                resultMessage = "Excellent travail! Vous maîtrisez bien CentOS.";
+            } else if (percentage >= 50) {
+                resultMessage = "Pas mal! Continuez à apprendre.";
+            } else {
+                resultMessage = "Il y a encore du travail. Revoyez les bases.";
+            }
+            scoreText.innerHTML = `Votre score: ${score} / ${questions.length} (${percentage.toFixed(0)}%)<br><p style='margin-top:10px;'>${resultMessage}</p>`;
+        }
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('network-animation-canvas');
+            if (!canvas) {
+                console.error('Canvas element #network-animation-canvas not found.');
+                return;
+            }
+            const ctx = canvas.getContext('2d');
+
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                if (particlesArray.length > 0) initParticles(); // Re-initialize on resize only if particles exist
+            });
+
+            const particlesArray = [];
+            const numberOfParticles = Math.min(150, Math.floor((width * height) / 15000)); // Adjust particle count based on screen size
+            const mouse = {
+                x: null,
+                y: null,
+                radius: 100 // Interaction radius
+            };
+
+            document.body.addEventListener('mousemove', (event) => {
+                mouse.x = event.clientX;
+                mouse.y = event.clientY;
+            });
+            document.body.addEventListener('mouseleave', () => { // Changed from window.mouseout to body.mouseleave
+                mouse.x = null;
+                mouse.y = null;
+            });
+             document.body.addEventListener('touchstart', (event) => {
+                if (event.touches.length > 0) {
+                    mouse.x = event.touches[0].clientX;
+                    mouse.y = event.touches[0].clientY;
+                }
+            }, { passive: true });
+            document.body.addEventListener('touchmove', (event) => {
+                if (event.touches.length > 0) {
+                    mouse.x = event.touches[0].clientX;
+                    mouse.y = event.touches[0].clientY;
+                }
+            }, { passive: true });
+            document.body.addEventListener('touchend', () => {
+                mouse.x = null;
+                mouse.y = null;
+            });
+
+            class Particle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.size = Math.random() * 2.5 + 1; // Particle size
+                    this.baseX = this.x;
+                    this.baseY = this.y;
+                    this.density = (Math.random() * 20) + 5; // Adjusted density
+                    this.color = 'rgba(37, 117, 252, 0.6)'; // Blue color for particles (primary-color like)
+                    this.speedX = (Math.random() - 0.5) * 1; // Slower initial speed
+                    this.speedY = (Math.random() - 0.5) * 1;
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                update() {
+                    // Mouse interaction
+                    let dxMouse = mouse.x - this.x;
+                    let dyMouse = mouse.y - this.y;
+                    let distanceMouse = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse);
+                    
+                    if (mouse.x !== null && distanceMouse < mouse.radius) {
+                        let forceDirectionX = dxMouse / distanceMouse;
+                        let forceDirectionY = dyMouse / distanceMouse;
+                        let force = (mouse.radius - distanceMouse) / mouse.radius;
+                        let moveX = forceDirectionX * force * this.density * 0.2; // Softer push
+                        let moveY = forceDirectionY * force * this.density * 0.2;
+                        this.x -= moveX;
+                        this.y -= moveY;
+                    } else {
+                        // Return to base position or wander
+                        if (Math.abs(this.x - this.baseX) > 0.1) {
+                            this.x += (this.baseX - this.x) / 30; // Smoother return
+                        }
+                        if (Math.abs(this.y - this.baseY) > 0.1) {
+                            this.y += (this.baseY - this.y) / 30;
+                        }
+                        // Wander
+                        this.x += this.speedX * 0.2;
+                        this.y += this.speedY * 0.2;
+
+                        // Boundary check for wandering
+                        if (this.x + this.size > width || this.x - this.size < 0) {
+                            this.speedX *= -1;
+                            this.x = Math.max(this.size, Math.min(width - this.size, this.x)); // Prevent sticking
+                        }
+                        if (this.y + this.size > height || this.y - this.size < 0) {
+                            this.speedY *= -1;
+                            this.y = Math.max(this.size, Math.min(height - this.size, this.y)); // Prevent sticking
+                        }
+                    }
+                }
+            }
+
+            function initParticles() {
+                particlesArray.length = 0; // Clear existing particles
+                const numParticles = Math.min(150, Math.floor((window.innerWidth * window.innerHeight) / 15000));
+                for (let i = 0; i < numParticles; i++) {
+                    let x = Math.random() * width;
+                    let y = Math.random() * height;
+                    particlesArray.push(new Particle(x, y));
+                }
+            }
+
+            function connectParticles() {
+                let opacityValue;
+                for (let a = 0; a < particlesArray.length; a++) {
+                    for (let b = a + 1; b < particlesArray.length; b++) { // Start b from a + 1
+                        let dx = particlesArray[a].x - particlesArray[b].x;
+                        let dy = particlesArray[a].y - particlesArray[b].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < 120) { // Connection distance
+                            opacityValue = 1 - (distance / 120);
+                            ctx.strokeStyle = `rgba(37, 117, 252, ${opacityValue * 0.3})`; // Softer blue lines
+                            ctx.lineWidth = 0.8;
+                            ctx.beginPath();
+                            ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                            ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            let lastTime = 0;
+            const fps = 30;
+            const frameInterval = 1000 / fps;
+
+            function animate(currentTime) {
+                requestAnimationFrame(animate);
+                const deltaTime = currentTime - lastTime;
+
+                if (deltaTime > frameInterval) {
+                    lastTime = currentTime - (deltaTime % frameInterval);
+                    ctx.clearRect(0, 0, width, height);
+                    for (let i = 0; i < particlesArray.length; i++) {
+                        particlesArray[i].update();
+                        particlesArray[i].draw();
+                    }
+                    connectParticles();
+                }
+            }
+
+            initParticles();
+            animate(0);
+        });
+    </script>
+    <script>
+        const canvas = document.getElementById('network-animation-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles(); // Re-initialize particles on resize for better distribution
+        });
+
+        const particles = [];
+        const particleCount = Math.floor((width * height) / 20000); // Adjust density based on screen size
+        const maxDistance = 150; // Max distance for lines between particles
+        const mouse = { x: null, y: null, radius: 120 }; // Mouse interaction radius, increased
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x || Math.random() * width;
+                this.y = y || Math.random() * height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() * 1 - 0.5) * 0.5; // Slower, more subtle movement
+                this.speedY = (Math.random() * 1 - 0.5) * 0.5;
+                this.color = Math.random() > 0.4 ? `rgba(37, 117, 252, ${Math.random() * 0.4 + 0.2})` : `rgba(0, 255, 155, ${Math.random() * 0.4 + 0.2})`; // Mix of blue (secondary) and green (accent), slightly more subtle
+            }
+
+            update() {
+                if (this.x > width || this.x < 0) {
+                    this.speedX *= -1;
+                }
+                if (this.y > height || this.y < 0) {
+                    this.speedY *= -1;
+                }
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // Mouse interaction - repel particles
+                if (mouse.x && mouse.y) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        const forceDirectionX = dx / distance;
+                        const forceDirectionY = dy / distance;
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        this.x -= forceDirectionX * force * 1.5; // Softer repulsion
+                        this.y -= forceDirectionY * force * 1.5;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles.length = 0; // Clear existing particles
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a + 1; b < particles.length; b++) {
+                    const dx = particles[a].x - particles[b].x;
+                    const dy = particles[a].y - particles[b].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        const opacity = 1 - (distance / maxDistance);
+                        ctx.strokeStyle = `rgba(100, 150, 255, ${opacity * 0.4})`; // Lighter, more ethereal blue for lines
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>
